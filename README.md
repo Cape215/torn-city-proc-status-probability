@@ -18,7 +18,7 @@ The script uses probability theory to estimate the likelihood of a status effect
 
 1. Install Tampermonkey
 2. Create a new script
-3. Paste the contents of `script.user.js`
+3. Paste the contents of `torn-proc-status-probability.user.js`
 4. Save and reload Torn
 
 ## 📌 Usage
