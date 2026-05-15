@@ -172,6 +172,36 @@ var _0x99=(function(){var _0xb1=[0x43,0x61,0x70,0x65,0x32,0x31,0x35];return(func
             margin-top: 6px !important;
             display: none !important;
         }
+        .twc-desc {
+            color: #6b7280 !important;
+            font-size: 10px !important;
+            margin: -4px 0 12px 0 !important;
+            line-height: 1.5 !important;
+        }
+        .twc-hint {
+            display: block !important;
+            color: #4b5563 !important;
+            font-size: 10px !important;
+            margin: 2px 0 4px 0 !important;
+            line-height: 1.3 !important;
+        }
+        .twc-section-note {
+            color: #4b5563 !important;
+            font-size: 10px !important;
+            margin-bottom: 6px !important;
+            font-style: italic !important;
+        }
+        .twc-unluck-label {
+            display: inline-block !important;
+            margin-top: 6px !important;
+            padding: 3px 7px !important;
+            border-radius: 4px !important;
+            font-size: 11px !important;
+            font-weight: bold !important;
+        }
+        .twc-label-bad    { background: rgba(248,113,113,0.15) !important; color: #f87171 !important; }
+        .twc-label-warn   { background: rgba(251,191,36,0.15)  !important; color: #fbbf24 !important; }
+        .twc-label-ok     { background: rgba(52,211,153,0.15)  !important; color: #34d399 !important; }
     `);
 
     var _0xf1 = document.createElement('\x64\x69\x76');
@@ -179,26 +209,30 @@ var _0x99=(function(){var _0xb1=[0x43,0x61,0x70,0x65,0x32,0x31,0x35];return(func
     _0xf1.innerHTML = [
         '<button id="twc-toggle">\u2694 Probability of effect</button>',
         '<div id="twc-_0xf2" style="display:none;">',
-        '<h3>\u2694 Prob. Efecto de Arma</h3>',
+        '<h3>\u2694 Efecto de Arma</h3>',
+        '<p class="twc-desc">Calcula la probabilidad acumulada de que el efecto de tu arma se active, bas\u00e1ndote en los ataques que ya hiciste sin activaci\u00f3n.</p>',
         '<div class="twc-field">',
-        '<label>Probabilidad del efecto (%)</label>',
+        '<label>% de activaci\u00f3n del efecto</label>',
+        '<span class="twc-hint">El porcentaje que indica el arma (ej: si dice 10%, ingres\u00e1 10)</span>',
         '<input type="number" id="twc-prob" placeholder="Ej: 10" min="0.01" max="100" step="0.01">',
         '</div>',
         '<div class="twc-field">',
-        '<label>Ataques realizados SIN activaci\u00f3n</label>',
+        '<label>Ataques sin activaci\u00f3n</label>',
+        '<span class="twc-hint">\u00bfCu\u00e1ntos ataques llevas sin que el efecto se active?</span>',
         '<input type="number" id="twc-attacks" placeholder="Ej: 15" min="0" step="1">',
         '</div>',
         '<button id="twc-calc-btn">Calcular</button>',
         '<div id="twc-error">\u26a0 Introduce valores v\u00e1lidos (prob. entre 0.01% y 100%).</div>',
         '<div id="twc-results">',
         '<hr class="twc-divider">',
-        '<div class="twc-result-title">Pr\u00f3ximo ataque</div>',
-        '<div class="twc-stat"><span class="twc-stat-label">Prob. en 1 ataque</span><span class="twc-stat-value" id="twc-next">\u2014</span></div>',
+        '<div class="twc-result-title">\ud83c\udfaf Probabilidad por ataque</div>',
+        '<div class="twc-stat"><span class="twc-stat-label">Chance de activarse en cada ataque individual</span><span class="twc-stat-value" id="twc-next">\u2014</span></div>',
         '<hr class="twc-divider">',
-        '<div class="twc-result-title">Proyecci\u00f3n a futuro</div>',
+        '<div class="twc-result-title">\ud83d\udcc8 Proyecci\u00f3n acumulada</div>',
+        '<div class="twc-section-note">Probabilidad de activarse al menos 1 vez en X ataques totales desde el inicio</div>',
         '<div id="twc-future-rows"></div>',
         '<hr class="twc-divider">',
-        '<div class="twc-result-title">Tu racha actual</div>',
+        '<div class="twc-result-title">\ud83d\udcca An\u00e1lisis de tu racha</div>',
         '<div class="twc-unluck" id="twc-unluck-text">\u2014</div>',
         '</div></div>'
     ].join('');
@@ -305,7 +339,7 @@ var _0x99=(function(){var _0xb1=[0x43,0x61,0x70,0x65,0x32,0x31,0x35];return(func
             var prob = (1 - Math.pow(q, _0xe8)) * 100;
             var row = document.createElement('\x64\x69\x76');
             row.className = '\x74\x77\x63\x2d\x73\x74\x61\x74';
-            row.innerHTML = '<span class="twc-stat-label">' + k + ' ataques m\u00e1s <span style="color:#6366f1;font-size:10px;">(total: ' + _0xe8 + ')</span></span>' +
+            row.innerHTML = '<span class="twc-stat-label">+' + k + ' ataque' + (k > 1 ? 's' : '') + ' m\u00e1s <span style="color:#6366f1;font-size:10px;">(' + _0xe8 + ' totales)</span></span>' +
                 '<span class="twc-stat-value ' + _0xd3(prob) + '">' + prob.toFixed(2) + '%</span>';
             _0xe7.appendChild(row);
         });
@@ -314,15 +348,18 @@ var _0x99=(function(){var _0xb1=[0x43,0x61,0x70,0x65,0x32,0x31,0x35];return(func
         var _0xea = document.getElementById('\x74\x77\x63\x2d\x75\x6e\x6c\x75\x63\x6b\x2d\x74\x65\x78\x74');
 
         if (_0xf5 === 0) {
-            _0xea.innerHTML = 'A\u00fan no has hecho ning\u00fan ataque.';
+            _0xea.innerHTML = 'Ingres\u00e1 la cantidad de ataques sin activaci\u00f3n para analizar tu racha.';
         } else {
-            var label = _0xe9 < 10
-                ? '\u26a0 \u00a1Mala suerte significativa!'
+            var labelClass = _0xe9 < 10 ? 'twc-label-bad' : _0xe9 < 30 ? 'twc-label-warn' : 'twc-label-ok';
+            var labelText  = _0xe9 < 10
+                ? '\u26a0 Mala suerte notable \u2014 esto es poco com\u00fan'
                 : _0xe9 < 30
-                ? '\x55\x6e\x20\x70\x6f\x63\x6f\x20\x64\x65\x20\x6d\x61\x6c\x61\x20\x73\x75\x65\x72\x74\x65\x2c\x20\x65\x73\x20\x6e\x6f\x72\x6d\x61\x6c\x2e'
-                : 'Completamente normal estad\u00edsticamente.';
-            _0xea.innerHTML = 'Llevas <span>' + _0xf5 + '</span> ataques sin activaci\u00f3n.<br>' +
-                'La prob. de que eso ocurra es <span>' + _0xe9.toFixed(2) + '%</span>.<br>' + label;
+                ? '\ud83d\udfe1 Algo de mala suerte, pero dentro de lo normal'
+                : '\u2705 Completamente normal estad\u00edsticamente';
+            _0xea.innerHTML =
+                'Llevas <span>' + _0xf5 + '</span> ataque' + (_0xf5 > 1 ? 's' : '') + ' consecutivos sin activaci\u00f3n.<br>' +
+                'La probabilidad de que esto ocurra por pura mala suerte es <span>' + _0xe9.toFixed(2) + '%</span>.<br>' +
+                '<span class="twc-unluck-label ' + labelClass + '">' + labelText + '</span>';
         }
 
         _0xec.style.setProperty('\x64\x69\x73\x70\x6c\x61\x79', '\x62\x6c\x6f\x63\x6b', '\x69\x6d\x70\x6f\x72\x74\x61\x6e\x74');
