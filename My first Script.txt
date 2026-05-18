@@ -1,9 +1,9 @@
-Hello My name is Cape215, and this is my first script for the game Torn city, I hope you like it.
+Hello My name is Cape215, 
+And this is my first script for the game Torn city, I hope you like it.
 Basically i saw some misconception about how percentages work and decided to do this script,
 for example, i read that a 10% chance of proc. is 1/10 meaning that in 1 out of 10 atacks the effect have to happen,
 wich is false, you have to understand that that 10% chance is in every hit individually,
 so you just have a 10% chance of having that effect happening. in the other hand if you have atacked 30 times and you didnt proc. any status effect you are quite an unlucky person.
-But thats just in the present, at the moment, right now. If you proyect your vision to idk 10 year from the very first day you used your weapon
-that have a status effect, you will see that actually your weapon status effect activates a 10% of the times.
-With that being said, i Hope you like this scriptgive me some feedback i am planing on upgrading it in the future.
+
+With that being said, i Hope you like this script give me some feedback i am planing on upgrading it in the future.
 P.D. This script is in Spanish, but using the Google translation option will put it in your language.
